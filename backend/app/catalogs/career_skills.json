@@ -1,0 +1,707 @@
+{
+  "C & C++ Systems Engineer": {
+    "career_name": "C & C++ Systems Engineer",
+    "description": "Build high-performance operating systems, embedded software, game engines, and low-level system services.",
+    "required_skills": [
+      {
+        "name": "C Syntax & Pointer Arithmetic",
+        "category": "C Systems Programming",
+        "description": "Pointers, memory addresses, pointer arithmetic, dereferencing, void pointers, and function pointers.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Structs, Unions & Bit Manipulation",
+        "category": "C Systems Programming",
+        "description": "Struct alignment, memory padding, bitwise operators (AND, OR, XOR, shifts), and bitfields.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Dynamic Memory Allocation & Safety",
+        "category": "C Systems Programming",
+        "description": "malloc, calloc, realloc, free, stack vs heap, buffer overflow prevention, and Valgrind memory debugging.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "C++ Object-Oriented Programming & Classes",
+        "category": "C++ Core",
+        "description": "Classes, encapsulation, access specifiers, member functions, method overloading, and operator overloading.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Constructors, Destructors & RAII",
+        "category": "C++ Memory Management",
+        "description": "Copy constructors, assignment operators, Rule of 3/5, and Resource Acquisition Is Initialization (RAII).",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Smart Pointers & Memory Management",
+        "category": "C++ Modern Standards",
+        "description": "std::unique_ptr, std::shared_ptr, std::weak_ptr, circular reference prevention, and custom deleters.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Standard Template Library (STL Containers)",
+        "category": "C++ Data Structures",
+        "description": "std::vector, std::map, std::unordered_map, std::set, std::deque, iterators, and std::algorithm.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Templates & Generic Programming",
+        "category": "C++ Advanced",
+        "description": "Function templates, class templates, template specialization, and type deduction.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Move Semantics & Rvalue References",
+        "category": "C++ Modern Standards",
+        "description": "Rvalue references (&&), std::move, std::forward, move constructors, and move assignment.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Data Structures & Algorithms in C/C++",
+        "category": "Computer Science",
+        "description": "Linked lists, binary search trees, min/max heaps, graph algorithms, sorting, and Big-O analysis.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "POSIX System Calls & Process Control",
+        "category": "Operating Systems",
+        "description": "fork, exec, wait, file descriptors, pipes, shared memory, and signal handling.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Multithreading & Concurrency (std::thread)",
+        "category": "Concurrent Systems",
+        "description": "std::thread, std::mutex, std::lock_guard, std::condition_variable, atomic operations, and deadlocks.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      }
+    ],
+    "prerequisites": {
+      "Structs, Unions & Bit Manipulation": ["C Syntax & Pointer Arithmetic"],
+      "Dynamic Memory Allocation & Safety": ["C Syntax & Pointer Arithmetic"],
+      "C++ Object-Oriented Programming & Classes": ["C Syntax & Pointer Arithmetic"],
+      "Constructors, Destructors & RAII": ["C++ Object-Oriented Programming & Classes"],
+      "Smart Pointers & Memory Management": ["Dynamic Memory Allocation & Safety", "Constructors, Destructors & RAII"],
+      "Standard Template Library (STL Containers)": ["C++ Object-Oriented Programming & Classes"],
+      "Templates & Generic Programming": ["C++ Object-Oriented Programming & Classes"],
+      "Move Semantics & Rvalue References": ["Constructors, Destructors & RAII"],
+      "Data Structures & Algorithms in C/C++": ["C Syntax & Pointer Arithmetic", "Dynamic Memory Allocation & Safety"],
+      "POSIX System Calls & Process Control": ["C Syntax & Pointer Arithmetic"],
+      "Multithreading & Concurrency (std::thread)": ["C++ Object-Oriented Programming & Classes", "POSIX System Calls & Process Control"]
+    }
+  },
+  "Java Enterprise Engineer": {
+    "career_name": "Java Enterprise Engineer",
+    "description": "Build high-throughput backend services, enterprise cloud applications, and microservices using Java and Spring Boot.",
+    "required_skills": [
+      {
+        "name": "Java Syntax & Primitive Types",
+        "category": "Core Java",
+        "description": "Variables, data types, operators, conditionals, loops, and basic console I/O.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Object-Oriented Design & Interfaces",
+        "category": "Java OOP",
+        "description": "Classes, objects, inheritance, interface implementation, abstract classes, and polymorphism.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Exception Handling & Package Management",
+        "category": "Core Java",
+        "description": "Checked vs unchecked exceptions, try-catch-finally, custom exceptions, and Java packages.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Java Collections Framework",
+        "category": "Core Java",
+        "description": "ArrayList, LinkedList, HashMap, HashSet, TreeMap, PriorityQueue, and Comparators.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Generics & Type Safety",
+        "category": "Core Java",
+        "description": "Generic classes, generic methods, wildcards (? super / ? extends), and type erasure.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Java 8+ Streams & Lambdas",
+        "category": "Modern Java",
+        "description": "Lambda expressions, Functional Interfaces (Predicate, Consumer), Stream map/filter/reduce.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Java Multithreading & Concurrency",
+        "category": "Advanced Java",
+        "description": "Thread class, Runnable, synchronized blocks, ReentrantLock, Executors, and CompletableFuture.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "SQL & Relational Databases",
+        "category": "Database",
+        "description": "Schemas, DDL/DML, JOINs, aggregations, indexing, and MySQL/PostgreSQL integration.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Spring Boot & Dependency Injection",
+        "category": "Enterprise Frameworks",
+        "description": "Spring IoC container, @Autowired, Spring Beans, application properties, and Maven/Gradle.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Spring Data JPA & REST Microservices",
+        "category": "Enterprise Frameworks",
+        "description": "@RestController, @GetMapping, @PostMapping, Entity mappings, Repositories, and REST API design.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      }
+    ],
+    "prerequisites": {
+      "Object-Oriented Design & Interfaces": ["Java Syntax & Primitive Types"],
+      "Exception Handling & Package Management": ["Java Syntax & Primitive Types"],
+      "Java Collections Framework": ["Object-Oriented Design & Interfaces"],
+      "Generics & Type Safety": ["Java Collections Framework"],
+      "Java 8+ Streams & Lambdas": ["Java Collections Framework"],
+      "Java Multithreading & Concurrency": ["Object-Oriented Design & Interfaces"],
+      "Spring Boot & Dependency Injection": ["Object-Oriented Design & Interfaces", "Java Collections Framework"],
+      "Spring Data JPA & REST Microservices": ["Spring Boot & Dependency Injection", "SQL & Relational Databases"]
+    }
+  },
+  "Python Developer": {
+    "career_name": "Python Developer",
+    "description": "Build backend APIs, automation scripts, and server-side software applications using Python.",
+    "required_skills": [
+      {
+        "name": "Python Fundamentals",
+        "category": "Core Python",
+        "description": "Variables, strings, integers, floats, booleans, and type conversion.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Control Structures & Functions",
+        "category": "Core Python",
+        "description": "if/else, for/while loops, function definitions, args/kwargs, and scope.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Object-Oriented Programming (Classes & Inheritance)",
+        "category": "Python Architecture",
+        "description": "Classes, __init__, self, inheritance, encapsulation, property decorators, and dunder methods.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Data Structures (Lists, Dicts, Sets, Tuples)",
+        "category": "Core Python",
+        "description": "List comprehensions, dictionary operations, set operations, tuple unpacking, and performance.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "File I/O & Exception Handling",
+        "category": "Core Python",
+        "description": "try/except/finally, context managers (with statement), JSON parsing, and file handling.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Modules, Packages & Virtual Environments",
+        "category": "Python Tooling",
+        "description": "import system, pip, venv, requirements.txt, pyproject.toml, and package structure.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "SQL & Relational Databases",
+        "category": "Database",
+        "description": "Relational schemas, queries, joins, indexes, SQLite, and SQLAlchemy ORM.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "FastAPI & REST APIs",
+        "category": "Web Backend",
+        "description": "Routing, Pydantic schemas, dependency injection, CORS, and Async request handling.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Testing & PyTest Framework",
+        "category": "Quality Assurance",
+        "description": "Unit testing, fixtures, test discovery, mocking, and assertions.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Git & DevOps Deployment",
+        "category": "DevOps",
+        "description": "Branching, PRs, Docker containerization, Uvicorn, and cloud hosting.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      }
+    ],
+    "prerequisites": {
+      "Control Structures & Functions": ["Python Fundamentals"],
+      "Object-Oriented Programming (Classes & Inheritance)": ["Python Fundamentals"],
+      "Data Structures (Lists, Dicts, Sets, Tuples)": ["Python Fundamentals"],
+      "File I/O & Exception Handling": ["Python Fundamentals"],
+      "Modules, Packages & Virtual Environments": ["Python Fundamentals"],
+      "FastAPI & REST APIs": ["SQL & Relational Databases"],
+      "Testing & PyTest Framework": ["Python Fundamentals"],
+      "Git & DevOps Deployment": ["Modules, Packages & Virtual Environments"]
+    }
+  },
+  "Web Developer": {
+    "career_name": "Web Developer",
+    "description": "Create interactive, modern web applications and websites using frontend and backend tech.",
+    "required_skills": [
+      {
+        "name": "HTML5 & Semantic Structure",
+        "category": "Frontend",
+        "description": "Semantic markup, document structure, forms, inputs, accessibility (a11y), and SEO.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "CSS3 & Modern Layout Systems",
+        "category": "Frontend",
+        "description": "Flexbox, CSS Grid, media queries, CSS variables, transitions, and responsive design.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "JavaScript Fundamentals & ES6+",
+        "category": "Frontend",
+        "description": "Variables, arrow functions, destructuring, spread operator, template literals, and modules.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "DOM Manipulation & Event Handling",
+        "category": "Frontend",
+        "description": "querySelector, addEventListener, event bubbling, delegation, and dynamic DOM updates.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Asynchronous JS (Promises & Async/Await)",
+        "category": "Frontend",
+        "description": "Fetch API, Promises, async/await functions, error handling, and JSON parsing.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "React Component Architecture",
+        "category": "Frontend Frameworks",
+        "description": "JSX, functional components, props, prop drilling, and key prop importance.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "React Hooks (useState & useEffect)",
+        "category": "Frontend Frameworks",
+        "description": "State management, side effect handling, dependency arrays, custom hooks.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Client-Side Routing (React Router)",
+        "category": "Frontend Frameworks",
+        "description": "BrowserRouter, Routes, Route, Link, useNavigate, and URL search params.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "REST API Integration & State Sync",
+        "category": "Fullstack",
+        "description": "Connecting React state to backend REST APIs, loading indicators, error states.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Git & Deployment Workflows",
+        "category": "DevOps",
+        "description": "Commits, branches, GitHub, Vercel/Netlify deployment, npm package manager.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      }
+    ],
+    "prerequisites": {
+      "CSS3 & Modern Layout Systems": ["HTML5 & Semantic Structure"],
+      "JavaScript Fundamentals & ES6+": ["HTML5 & Semantic Structure"],
+      "DOM Manipulation & Event Handling": ["JavaScript Fundamentals & ES6+"],
+      "Asynchronous JS (Promises & Async/Await)": ["JavaScript Fundamentals & ES6+"],
+      "React Component Architecture": ["JavaScript Fundamentals & ES6+", "CSS3 & Modern Layout Systems"],
+      "React Hooks (useState & useEffect)": ["React Component Architecture"],
+      "Client-Side Routing (React Router)": ["React Component Architecture"],
+      "REST API Integration & State Sync": ["React Hooks (useState & useEffect)", "Asynchronous JS (Promises & Async/Await)"]
+    }
+  },
+  "Data Analyst": {
+    "career_name": "Data Analyst",
+    "description": "Transform raw data into actionable insights using statistics, SQL, Python, and visualization.",
+    "required_skills": [
+      {
+        "name": "SQL Data Querying & Aggregation",
+        "category": "Database",
+        "description": "SELECT, WHERE, GROUP BY, HAVING, COUNT, SUM, AVG, and MIN/MAX.",
+        "expected_proficiency": "Advanced",
+        "priority": "Core"
+      },
+      {
+        "name": "SQL Joins & Window Functions",
+        "category": "Database",
+        "description": "INNER/LEFT/RIGHT JOIN, subqueries, OVER(), ROW_NUMBER(), PARTITION BY.",
+        "expected_proficiency": "Advanced",
+        "priority": "Core"
+      },
+      {
+        "name": "Python Fundamentals for Analytics",
+        "category": "Data Science",
+        "description": "Python data structures, functions, loops, and basic data processing.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Pandas Data Manipulation",
+        "category": "Data Science",
+        "description": "DataFrames, Series, reading CSV/Excel, filtering, groupby, and merging.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Data Cleaning & Missing Value Imputation",
+        "category": "Data Science",
+        "description": "Handling NaNs, dropna, fillna, string parsing, and type conversions.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "NumPy Numerical Computing",
+        "category": "Data Science",
+        "description": "NDArrays, vectorization, mathematical operations, and matrix algebra.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Data Visualization (Matplotlib & Seaborn)",
+        "category": "Data Science",
+        "description": "Bar charts, line graphs, scatter plots, histograms, heatmaps, and styling.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Exploratory Data Analysis (EDA)",
+        "category": "Analytics",
+        "description": "Distribution analysis, correlation, outlier detection, and statistical summaries.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Excel & Spreadsheet Modeling",
+        "category": "Analytics Tools",
+        "description": "Pivot tables, VLOOKUP/XLOOKUP, formulas, chart creation, and data validation.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Dashboard Reporting & Metrics",
+        "category": "Business Intelligence",
+        "description": "KPI metrics definition, executive summary reports, and presentation of insights.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      }
+    ],
+    "prerequisites": {
+      "SQL Joins & Window Functions": ["SQL Data Querying & Aggregation"],
+      "Pandas Data Manipulation": ["Python Fundamentals for Analytics"],
+      "Data Cleaning & Missing Value Imputation": ["Pandas Data Manipulation"],
+      "NumPy Numerical Computing": ["Python Fundamentals for Analytics"],
+      "Data Visualization (Matplotlib & Seaborn)": ["Pandas Data Manipulation"],
+      "Exploratory Data Analysis (EDA)": ["Pandas Data Manipulation", "SQL Data Querying & Aggregation"]
+    }
+  },
+  "AI Engineer": {
+    "career_name": "AI Engineer",
+    "description": "Develop and deploy machine learning models, LLM pipelines, and intelligent AI agents.",
+    "required_skills": [
+      {
+        "name": "Python Programming for AI",
+        "category": "Core Programming",
+        "description": "Advanced Python, OOP, decorators, generators, and package development.",
+        "expected_proficiency": "Advanced",
+        "priority": "Core"
+      },
+      {
+        "name": "Math Foundations (Linear Algebra & Calculus)",
+        "category": "AI Math",
+        "description": "Vectors, matrices, dot products, partial derivatives, and gradient vectors.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Machine Learning Fundamentals",
+        "category": "Machine Learning",
+        "description": "Supervised/unsupervised learning, scikit-learn, regression, classification, clustering.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Model Evaluation & Hyperparameter Tuning",
+        "category": "Machine Learning",
+        "description": "Cross-validation, precision/recall, F1 score, ROC-AUC, and GridSearchCV.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Deep Learning & Neural Networks",
+        "category": "Deep Learning",
+        "description": "PyTorch/TensorFlow, activation functions, backpropagation, and dense layers.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Convolutional & Recurrent Architectures",
+        "category": "Deep Learning",
+        "description": "CNNs for computer vision, RNNs/LSTMs for sequence data.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Transformers & Attention Mechanism",
+        "category": "GenAI",
+        "description": "Self-attention, multi-head attention, encoder-decoder, BERT, and GPT architecture.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "LLM API Integration & Prompt Engineering",
+        "category": "GenAI",
+        "description": "Gemini API, OpenAI API, function calling, system instructions, and structured output.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Vector Databases & RAG Pipelines",
+        "category": "GenAI",
+        "description": "ChromaDB, FAISS, text embeddings, chunking strategies, and retrieval-augmented generation.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Autonomous Multi-Agent Platforms",
+        "category": "GenAI",
+        "description": "Agent tool calling, model routing, multi-turn reasoning loops, and safety guardrails.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      }
+    ],
+    "prerequisites": {
+      "Machine Learning Fundamentals": ["Python Programming for AI", "Math Foundations (Linear Algebra & Calculus)"],
+      "Model Evaluation & Hyperparameter Tuning": ["Machine Learning Fundamentals"],
+      "Deep Learning & Neural Networks": ["Machine Learning Fundamentals"],
+      "Convolutional & Recurrent Architectures": ["Deep Learning & Neural Networks"],
+      "Transformers & Attention Mechanism": ["Deep Learning & Neural Networks"],
+      "LLM API Integration & Prompt Engineering": ["Python Programming for AI"],
+      "Vector Databases & RAG Pipelines": ["LLM API Integration & Prompt Engineering"],
+      "Autonomous Multi-Agent Platforms": ["LLM API Integration & Prompt Engineering", "Vector Databases & RAG Pipelines"]
+    }
+  },
+  "Cybersecurity Analyst": {
+    "career_name": "Cybersecurity Analyst",
+    "description": "Protect systems, networks, and applications from cyber threats and vulnerabilities.",
+    "required_skills": [
+      {
+        "name": "Networking Protocols (TCP/IP & OSI Model)",
+        "category": "Infrastructure",
+        "description": "IP addressing, CIDR subnets, TCP/UDP, DNS, HTTP/HTTPS, and OSI layers.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Linux Command Line & Shell Administration",
+        "category": "Operating Systems",
+        "description": "Bash navigation, file permissions (chmod/chown), process management, and grep log analysis.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Web Security & OWASP Top 10",
+        "category": "Application Security",
+        "description": "SQL injection, Cross-Site Scripting (XSS), CSRF, broken authentication, and CORS security.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Cryptography & PKI Infrastructure",
+        "category": "Security",
+        "description": "Symmetric vs asymmetric encryption, AES, RSA, hashing (SHA256), SSL/TLS certificates.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Network Reconnaissance & Port Scanning",
+        "category": "Security Tools",
+        "description": "Nmap scanning techniques, service detection, OS fingerprinting, and vulnerability scanning.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Packet Analysis & Wireshark",
+        "category": "Security Tools",
+        "description": "PCAP capture analysis, protocol breakdown, handshake inspection, and anomaly detection.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Firewalls, IDS & IPS Configuration",
+        "category": "Network Security",
+        "description": "Stateful firewalls, Snort/Suricata rules, intrusion detection, and network segmentation.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "SIEM Log Correlation & Incident Response",
+        "category": "Security Operations",
+        "description": "Splunk/ELK log aggregation, alert correlation, threat hunting, and incident triage.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Identity & Access Management (IAM)",
+        "category": "Security Architecture",
+        "description": "Authentication, authorization, RBAC, Multi-Factor Authentication (MFA), and OAuth2/SAML.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Vulnerability Assessment & Remediation",
+        "category": "Security Operations",
+        "description": "CVSS scoring, vulnerability patching, risk management, and security reporting.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      }
+    ],
+    "prerequisites": {
+      "Linux Command Line & Shell Administration": ["Networking Protocols (TCP/IP & OSI Model)"],
+      "Web Security & OWASP Top 10": ["Networking Protocols (TCP/IP & OSI Model)"],
+      "Cryptography & PKI Infrastructure": ["Networking Protocols (TCP/IP & OSI Model)"],
+      "Network Reconnaissance & Port Scanning": ["Networking Protocols (TCP/IP & OSI Model)"],
+      "Packet Analysis & Wireshark": ["Networking Protocols (TCP/IP & OSI Model)"],
+      "Firewalls, IDS & IPS Configuration": ["Network Reconnaissance & Port Scanning"],
+      "SIEM Log Correlation & Incident Response": ["Linux Command Line & Shell Administration", "Firewalls, IDS & IPS Configuration"],
+      "Identity & Access Management (IAM)": ["Web Security & OWASP Top 10"],
+      "Vulnerability Assessment & Remediation": ["Network Reconnaissance & Port Scanning"]
+    }
+  },
+  "Cloud Engineer": {
+    "career_name": "Cloud Engineer",
+    "description": "Design, deploy, scale, and manage cloud infrastructure using AWS, GCP, Azure, and IaC.",
+    "required_skills": [
+      {
+        "name": "Cloud Computing Fundamentals (AWS/GCP)",
+        "category": "Cloud Computing",
+        "description": "Compute instances, Cloud Storage, Virtual Private Clouds (VPC), and IAM security.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Linux System Administration & Scripting",
+        "category": "Operating Systems",
+        "description": "SSH, systemd services, cron jobs, bash scripting, and package management.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Cloud Networking & Load Balancing",
+        "category": "Cloud Infrastructure",
+        "description": "Subnets, route tables, internet gateways, security groups, and Application Load Balancers.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Docker & Container Architecture",
+        "category": "DevOps",
+        "description": "Dockerfiles, container lifecycles, volumes, network bridges, and multi-stage builds.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Docker Compose & Multi-Container Apps",
+        "category": "DevOps",
+        "description": "docker-compose.yml syntax, service linking, environment variables, and local orchestration.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Kubernetes Container Orchestration",
+        "category": "DevOps",
+        "description": "Pods, Deployments, Services, Ingress, ConfigMaps, Secrets, and kubectl commands.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Infrastructure as Code (Terraform)",
+        "category": "DevOps",
+        "description": "HCL syntax, terraform plan/apply, state management, modules, and cloud providers.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "CI/CD Pipeline Automation",
+        "category": "DevOps",
+        "description": "GitHub Actions workflows, build automation, automated testing, and artifact deployment.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Cloud Monitoring & Logging",
+        "category": "Observability",
+        "description": "CloudWatch/Cloud Monitoring, Prometheus, Grafana metrics, and log aggregation.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      },
+      {
+        "name": "Cloud Security & Compliance",
+        "category": "Cloud Security",
+        "description": "Least privilege IAM, KMS encryption at rest/in transit, network ACLs, and audit logs.",
+        "expected_proficiency": "Intermediate",
+        "priority": "Core"
+      }
+    ],
+    "prerequisites": {
+      "Linux System Administration & Scripting": ["Cloud Computing Fundamentals (AWS/GCP)"],
+      "Cloud Networking & Load Balancing": ["Cloud Computing Fundamentals (AWS/GCP)"],
+      "Docker & Container Architecture": ["Linux System Administration & Scripting"],
+      "Docker Compose & Multi-Container Apps": ["Docker & Container Architecture"],
+      "Kubernetes Container Orchestration": ["Docker & Container Architecture", "Cloud Networking & Load Balancing"],
+      "Infrastructure as Code (Terraform)": ["Cloud Computing Fundamentals (AWS/GCP)", "Cloud Networking & Load Balancing"],
+      "CI/CD Pipeline Automation": ["Docker & Container Architecture"],
+      "Cloud Monitoring & Logging": ["Cloud Computing Fundamentals (AWS/GCP)"],
+      "Cloud Security & Compliance": ["Cloud Computing Fundamentals (AWS/GCP)"]
+    }
+  }
+}

@@ -1,0 +1,30 @@
+# SkillBridge AI Git Ignore
+
+# Environment & Secrets
+.env
+*.env
+!.env.example
+
+# Databases
+*.db
+*.sqlite3
+skillbridge.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+.pytest_cache/
+
+# Node & Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
