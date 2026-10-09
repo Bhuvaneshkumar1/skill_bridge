@@ -54,8 +54,9 @@ SkillBridge AI conducts interactive diagnostic onboarding, performs skill gap an
 
 ### 5. 🏆 Interactive Quiz Hub & Diagnostic Evaluation
 - Dedicated `/quiz` route with subject selector dropdown for all tech domains (C, C++, Java, Python, SQL, DSA, Web Dev, Security).
-- Generates 5 diagnostic questions per topic (2 MCQs, 2 Short Answers, 1 Practical Code/Command Challenge).
-- Evaluates answers against backend rubrics, generating an overall score %, mastery status, and question-by-question feedback.
+- **Course-Completion Gating:** Quizzes are authoritatively locked until required learning modules or tasks are completed (`LOCKED` $\rightarrow$ `IN_PROGRESS` $\rightarrow$ `CONTENT_COMPLETED` $\rightarrow$ `QUIZ_UNLOCKED` $\rightarrow$ `PASSED`).
+- **Fresh MCQ Generation:** 100% single-answer Multiple Choice Questions (4 distinct options: A, B, C, D) dynamically generated with SHA-256 deduplication hashing against recent student quiz history.
+- **Deterministic Server-Side Scoring:** Answers are securely evaluated on the backend against protected answer keys with retry workflow on failed attempts.
 
 ### 6. 🔄 Evidence-Based Adaptive Engine
 - Automatically shifts teaching strategy based on empirical performance:

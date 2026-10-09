@@ -387,4 +387,4 @@ Begin with Batch 1 only. Do not implement all seven batches in a single unverifi
 
 
 
-**Important note**: after everything finished generate a zip file without the node modules
+**Important note**: after everything finished push to the github already the origin is set just add ,commit and push to github generate a zip file without the node modules
