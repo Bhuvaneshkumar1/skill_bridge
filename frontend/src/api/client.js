@@ -3,10 +3,16 @@
 const BASE_URL = '/api';
 
 async function fetchJSON(endpoint, options = {}) {
+  const savedStudentId = typeof window !== 'undefined' ? localStorage.getItem('skillbridge_student_id') : null;
+  const customHeaders = { ...options.headers };
+  if (savedStudentId && !customHeaders['X-Student-Id'] && !customHeaders['Authorization']) {
+    customHeaders['X-Student-Id'] = savedStudentId;
+  }
+
   const config = {
     headers: {
       'Content-Type': 'application/json',
-      ...options.headers,
+      ...customHeaders,
     },
     ...options,
   };
@@ -35,8 +41,10 @@ export const api = {
 
   // Careers & Skill Gap
   listCareers: () => fetchJSON('/careers'),
-  getCareerMap: (name) => fetchJSON(`/careers/${encodeURIComponent(name)}`),
-  getSkillGap: (careerName, studentId) => fetchJSON(`/careers/${encodeURIComponent(careerName)}/gap-analysis/${studentId}`),
+  getSkillGap: (careerName, studentId, forceRefresh = false) => {
+    const q = forceRefresh ? '?force_refresh=true' : '';
+    return fetchJSON(`/careers/${encodeURIComponent(careerName)}/gap-analysis/${studentId}${q}`);
+  },
 
   // Resources
   searchResources: (params = {}) => {
@@ -73,17 +81,22 @@ export const api = {
   }),
 
   // Quiz & Eval
+  getQuizStatus: (topic) => fetchJSON(`/quiz/status/${encodeURIComponent(topic)}`),
+  completeModule: (studentId, topic, moduleName = 'concept_explanation') => fetchJSON('/quiz/complete-module', {
+    method: 'POST',
+    body: JSON.stringify({ student_id: studentId, topic, module_name: moduleName })
+  }),
   generateQuiz: (studentId, topic, numQuestions = 5) => fetchJSON('/quiz/generate', {
     method: 'POST',
-    body: JSON.stringify({ student_id: parseInt(studentId || 1, 10), topic, num_questions: numQuestions })
+    body: JSON.stringify({ student_id: studentId, topic, num_questions: numQuestions })
   }),
   submitQuiz: (studentId, quizId, topic, answers) => fetchJSON('/quiz/submit', {
     method: 'POST',
-    body: JSON.stringify({ student_id: parseInt(studentId || 1, 10), quiz_id: quizId, topic, answers })
+    body: JSON.stringify({ student_id: studentId, quiz_id: quizId, topic, answers })
   }),
   evaluateQuiz: (studentId, quizId, topic, answers) => fetchJSON('/quiz/submit', {
     method: 'POST',
-    body: JSON.stringify({ student_id: parseInt(studentId || 1, 10), quiz_id: quizId, topic, answers })
+    body: JSON.stringify({ student_id: studentId, quiz_id: quizId, topic, answers })
   }),
 
   // Progress
@@ -93,3 +106,4 @@ export const api = {
   runSandboxCode: (data) => fetchJSON('/sandbox/run', { method: 'POST', body: JSON.stringify(data) }),
   submitSandboxCode: (data) => fetchJSON('/sandbox/submit', { method: 'POST', body: JSON.stringify(data) })
 };
+

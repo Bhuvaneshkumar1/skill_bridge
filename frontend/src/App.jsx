@@ -21,7 +21,6 @@ export default function App() {
   useEffect(() => {
     const savedId = localStorage.getItem('skillbridge_student_id');
     if (!savedId) {
-      // FORCE ONBOARDING IF USER HAS NOT SET NAME AND CAREER GOAL YET!
       setCurrentProfile(null);
       setIsOnboardingOpen(true);
       setLoadingProfile(false);
@@ -33,6 +32,8 @@ export default function App() {
         setCurrentProfile(profile);
       })
       .catch(() => {
+        localStorage.removeItem('skillbridge_student_id');
+        setCurrentProfile(null);
         setIsOnboardingOpen(true);
       })
       .finally(() => {
@@ -47,9 +48,19 @@ export default function App() {
     }
   };
 
+  if (loadingProfile) {
+    return (
+      <div className="min-h-screen bg-[#0B1120] text-slate-100 flex items-center justify-center font-sans">
+        <div className="text-center text-xs text-blue-400 font-medium">
+          Initializing SkillBridge AI Workspace...
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Router>
-      <div className="min-h-screen bg-[#0B0F17] text-gray-100 flex flex-col font-sans">
+      <div className="min-h-screen bg-[#0B1120] text-slate-100 flex flex-col font-sans">
         
         {/* Navigation Bar */}
         <Navbar

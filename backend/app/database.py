@@ -21,3 +21,9 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def init_db(target_engine=None):
+    """Controlled schema creation/migration helper; never called during module import."""
+    bind_engine = target_engine or engine
+    Base.metadata.create_all(bind=bind_engine)

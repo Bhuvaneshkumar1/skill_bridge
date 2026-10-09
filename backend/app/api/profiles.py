@@ -34,28 +34,52 @@ def create_student_profile(profile_in: StudentProfileCreate, db: Session = Depen
     db.add(db_profile)
     db.commit()
     db.refresh(db_profile)
+
+    # Initialize canonical CareerSkillGapSnapshot for the new student
+    try:
+        from backend.app.services.skill_gap_service import SkillGapService
+        SkillGapService.get_or_compute_snapshot(
+            db=db,
+            student_id=db_profile.id,
+            target_career=db_profile.target_career,
+            reason="profile_created"
+        )
+    except Exception:
+        pass
+
     return db_profile
 
+
+from backend.app.auth import get_current_student
 
 @router.get("/{profile_id}", response_model=StudentProfileResponse)
-def get_student_profile(profile_id: int, db: Session = Depends(get_db)):
-    db_profile = db.query(StudentProfile).filter(StudentProfile.id == profile_id).first()
-    if not db_profile:
+def get_student_profile(
+    profile_id: int,
+    current_student: StudentProfile = Depends(get_current_student),
+    db: Session = Depends(get_db)
+):
+    if current_student.id != profile_id:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Student profile with ID {profile_id} not found."
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Forbidden: You do not have permission to view another student's profile."
         )
-    return db_profile
+    return current_student
 
 
 @router.put("/{profile_id}", response_model=StudentProfileResponse)
-def update_student_profile(profile_id: int, profile_in: StudentProfileUpdate, db: Session = Depends(get_db)):
-    db_profile = db.query(StudentProfile).filter(StudentProfile.id == profile_id).first()
-    if not db_profile:
+def update_student_profile(
+    profile_id: int,
+    profile_in: StudentProfileUpdate,
+    current_student: StudentProfile = Depends(get_current_student),
+    db: Session = Depends(get_db)
+):
+    if current_student.id != profile_id:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Student profile with ID {profile_id} not found."
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Forbidden: You do not have permission to modify another student's profile."
         )
+
+    db_profile = current_student
 
     if profile_in.target_career is not None:
         careers = CatalogManager.get_careers()
@@ -82,9 +106,31 @@ def update_student_profile(profile_id: int, profile_in: StudentProfileUpdate, db
 
     db.commit()
     db.refresh(db_profile)
+
+    # Invalidate and recompute canonical skill gap snapshot if career or skills changed
+    career_or_skills_changed = (
+        profile_in.target_career is not None or
+        profile_in.existing_skills is not None or
+        profile_in.self_reported_proficiency is not None
+    )
+    if career_or_skills_changed:
+        try:
+            from backend.app.services.skill_gap_service import SkillGapService
+            SkillGapService.invalidate_and_recompute(
+                db=db,
+                student_id=db_profile.id,
+                target_career=db_profile.target_career,
+                reason="profile_updated"
+            )
+        except Exception:
+            pass
+
     return db_profile
 
 
 @router.get("", response_model=List[StudentProfileResponse])
-def list_student_profiles(skip: int = 0, limit: int = 20, db: Session = Depends(get_db)):
-    return db.query(StudentProfile).offset(skip).limit(limit).all()
+def list_student_profiles(
+    current_student: StudentProfile = Depends(get_current_student),
+    db: Session = Depends(get_db)
+):
+    return [current_student]

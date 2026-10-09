@@ -2,61 +2,85 @@
 
 @layer base {
   :root {
-    --bg-main: #0B0F17;
-    --card-bg: rgba(17, 24, 39, 0.75);
-    --card-border: rgba(255, 255, 255, 0.08);
-    --accent-blue: #3B82F6;
-    --accent-indigo: #6366F1;
-    --accent-cyan: #06B6D4;
-    --accent-emerald: #10B981;
-    --accent-amber: #F59E0B;
-    --accent-rose: #F43F5E;
+    --bg-main: #0B1120;
+    --bg-surface: #111A2E;
+    --bg-surface-elevated: #162440;
+    --border-subtle: #1E293B;
+    --border-medium: #334155;
+    
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
+    
+    --primary: #2563EB;
+    --primary-hover: #1D4ED8;
+    --primary-subtle: rgba(37, 99, 235, 0.12);
+    --primary-border: rgba(37, 99, 235, 0.35);
+    
+    --success: #10B981;
+    --success-subtle: rgba(16, 185, 129, 0.12);
+    --warning: #F59E0B;
+    --warning-subtle: rgba(245, 158, 11, 0.12);
+    --error: #EF4444;
+    --error-subtle: rgba(239, 68, 68, 0.12);
   }
 
   body {
     background-color: var(--bg-main);
-    color: #F3F4F6;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-.glass-panel {
-  background: rgba(17, 24, 39, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+/* Professional Card & Panel Architecture */
+.glass-panel, .pro-panel {
+  background-color: #111A2E;
+  border: 1px solid #1E293B;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
 }
 
-.glass-card {
-  background: rgba(31, 41, 55, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+.glass-card, .pro-card {
+  background-color: #131E35;
+  border: 1px solid #1E293B;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.glass-card:hover {
-  border-color: rgba(99, 102, 241, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px -10px rgba(99, 102, 241, 0.25);
+.glass-card:hover, .pro-card:hover {
+  border-color: #3B82F6;
+  background-color: #162440;
 }
 
+/* Restrained Primary Typography & Badges */
 .gradient-text {
-  background: linear-gradient(135deg, #60A5FA 0%, #818CF8 50%, #C084FC 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #60A5FA;
+  font-weight: 700;
 }
 
-.gradient-button {
-  background: linear-gradient(135deg, #4F46E5 0%, #2563EB 100%);
-  transition: all 0.2s ease;
+/* Solid Professional Buttons (No Neon Glows) */
+.gradient-button, .btn-primary {
+  background-color: #2563EB;
+  color: #FFFFFF;
+  font-weight: 600;
+  transition: background-color 0.15s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
-.gradient-button:hover {
-  background: linear-gradient(135deg, #4338CA 0%, #1D4ED8 100%);
-  box-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
+.gradient-button:hover, .btn-primary:hover {
+  background-color: #1D4ED8;
+}
+
+.gradient-button:active, .btn-primary:active {
+  background-color: #1E40AF;
+}
+
+/* Focus Indicators & Accessible Navigation */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
 }
 
 /* Custom Scrollbar */
@@ -65,12 +89,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: #0B1120;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(55, 65, 81, 0.8);
+  background: #334155;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.6);
+  background: #475569;
 }

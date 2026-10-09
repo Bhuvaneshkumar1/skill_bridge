@@ -38,12 +38,12 @@ class NVIDIAModelRouter:
     _client: Optional[OpenAI] = None
 
     @classmethod
-    def get_client(cls) -> OpenAI:
+    def get_client(cls) -> Optional[OpenAI]:
         api_key = settings.NVIDIA_API_KEY or os.getenv("NVIDIA_API_KEY", "")
         if not api_key:
-            api_key = "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"
+            return None
 
-        if cls._client is None:
+        if cls._client is None or getattr(cls._client, "api_key", None) != api_key:
             cls._client = OpenAI(
                 base_url=NVIDIA_BASE_URL,
                 api_key=api_key
@@ -64,6 +64,14 @@ class NVIDIAModelRouter:
         If the primary model fails or hits limits, automatically rotates to the next model.
         """
         client = cls.get_client()
+        if not client:
+            return {
+                "success": False,
+                "error": "No NVIDIA_API_KEY configured.",
+                "completion": None,
+                "model_used": None,
+                "switched_models": []
+            }
         candidate_models = NVIDIA_MODEL_POOLS.get(task_type, NVIDIA_MODEL_POOLS["orchestration"])
         switched_models = []
         last_exception = None
@@ -96,6 +104,13 @@ class NVIDIAModelRouter:
                 logger.warning(f"[NVIDIA NIM Router] Model '{model_name}' failed ({err_msg}). Switching to next model...")
                 switched_models.append({"model": model_name, "error": err_msg})
                 last_exception = exc
+
+                # If account is not authorized or function does not exist for this account, all models will fail.
+                # Fast-fail to prevent delaying agent response by 30+ seconds.
+                err_lower = err_msg.lower()
+                if "not found for account" in err_lower or "404" in err_lower or "unauthorized" in err_lower or "401" in err_lower:
+                    logger.info("[NVIDIA NIM Router] Account does not have NIM function access. Fast-failing to agent tutor.")
+                    break
 
         # Return failure details if all models in pool failed
         return {

@@ -57,7 +57,7 @@ class ToolRegistry:
                 student_id = int(arguments.get("student_id", 0))
                 topic = str(arguments.get("topic", ""))
                 num_questions = int(arguments.get("num_questions", 3))
-                return generate_quiz(student_id=student_id, topic=topic, num_questions=num_questions)
+                return generate_quiz(student_id=student_id, topic=topic, num_questions=num_questions, db=db)
 
             elif tool_name == "evaluate_performance":
                 student_id = int(arguments.get("student_id", 0))

@@ -4,7 +4,7 @@ import mermaid from 'mermaid';
 mermaid.initialize({
   startOnLoad: false,
   theme: 'dark',
-  securityLevel: 'loose',
+  securityLevel: 'strict',
   fontFamily: 'Inter, system-ui, sans-serif',
   themeVariables: {
     darkMode: true,
@@ -17,6 +17,18 @@ mermaid.initialize({
     tertiaryColor: '#0F172A'
   }
 });
+
+/**
+ * Basic SVG sanitizer to strip dangerous scripts, event handlers, and javascript URIs.
+ */
+function sanitizeSvg(rawSvg) {
+  if (!rawSvg) return '';
+  return rawSvg
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+    .replace(/ on\w+="[^"]*"/gi, '')
+    .replace(/ on\w+='[^']*'/gi, '')
+    .replace(/href="javascript:[^"]*"/gi, 'href="#"');
+}
 
 export default function MermaidDiagram({ chartCode }) {
   const containerRef = useRef(null);
@@ -33,7 +45,7 @@ export default function MermaidDiagram({ chartCode }) {
         const id = `mermaid_svg_${Math.random().toString(36).substring(2, 9)}`;
         const { svg } = await mermaid.render(id, chartCode);
         if (isMounted) {
-          setSvgContent(svg);
+          setSvgContent(sanitizeSvg(svg));
         }
       } catch (err) {
         console.error("Mermaid render error:", err);
@@ -53,6 +65,7 @@ export default function MermaidDiagram({ chartCode }) {
   if (renderError || !svgContent) {
     return (
       <div className="p-4 rounded-xl bg-slate-900 border border-gray-800 text-xs font-mono text-indigo-300 overflow-x-auto">
+        <div className="text-[11px] text-amber-400 font-sans mb-1 font-semibold">Diagram Source Code:</div>
         <pre className="text-gray-300">{chartCode}</pre>
       </div>
     );
@@ -66,3 +79,4 @@ export default function MermaidDiagram({ chartCode }) {
     />
   );
 }
+

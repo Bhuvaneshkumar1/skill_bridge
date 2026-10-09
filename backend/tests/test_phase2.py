@@ -59,6 +59,9 @@ def test_tool_5_teach_concept(db_session, sample_student):
 
 
 def test_tool_6_generate_quiz(db_session, sample_student):
+    from backend.app.services.course_gating_service import CourseGatingService
+    CourseGatingService.mark_module_completed(sample_student.id, "FastAPI", "core_concepts", db_session)
+    CourseGatingService.mark_module_completed(sample_student.id, "FastAPI", "practical_drill", db_session)
     res = ToolRegistry.execute_tool("generate_quiz", {"student_id": sample_student.id, "topic": "FastAPI", "num_questions": 3}, db_session)
     assert "error" not in res
     assert res["topic"] == "FastAPI"
@@ -68,12 +71,17 @@ def test_tool_6_generate_quiz(db_session, sample_student):
 
 
 def test_tool_7_evaluate_performance(db_session, sample_student):
+    from backend.app.services.course_gating_service import CourseGatingService
+    CourseGatingService.mark_module_completed(sample_student.id, "FastAPI", "core_concepts", db_session)
+    CourseGatingService.mark_module_completed(sample_student.id, "FastAPI", "practical_drill", db_session)
     quiz = ToolRegistry.execute_tool("generate_quiz", {"student_id": sample_student.id, "topic": "FastAPI", "num_questions": 2}, db_session)
     quiz_id = quiz["quiz_id"]
     
+    from backend.app.tools.quiz_tools import get_quiz_answer_key
+    keys = get_quiz_answer_key(quiz_id)
     answers = [
-        {"question_id": f"{quiz_id}_q1", "student_response": "A"},
-        {"question_id": f"{quiz_id}_q2", "student_response": "FastAPI receives input parameters, executes routing and validated output."}
+        {"question_id": q["id"], "student_response": keys[q["id"]]["expected_answer"]}
+        for q in quiz["questions"]
     ]
 
     eval_res = ToolRegistry.execute_tool("evaluate_performance", {

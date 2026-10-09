@@ -30,15 +30,20 @@ def test_adaptive_learning_method_shift_workflow(db_session, adaptive_student):
     q1 = generate_quiz(student_id=adaptive_student.id, topic="Object-Oriented Programming (OOP)", num_questions=2)
     q1_id = q1["quiz_id"]
     
-    # Incorrect / poor submission
+    # Incorrect / poor submission (pick distractor options to ensure struggling score < 50%)
+    from backend.app.tools.quiz_tools import get_quiz_answer_key
+    keys = get_quiz_answer_key(q1_id)
+    wrong_answers = []
+    for q in q1["questions"]:
+        correct_letter = keys[q["id"]]["expected_answer"]
+        wrong_letter = next(opt["option_id"] for opt in q["options"] if opt["option_id"] != correct_letter)
+        wrong_answers.append({"question_id": q["id"], "student_response": wrong_letter})
+
     eval1 = evaluate_performance(
         student_id=adaptive_student.id,
         topic="Object-Oriented Programming (OOP)",
         quiz_id=q1_id,
-        student_answers=[
-            {"question_id": f"{q1_id}_q1", "student_response": "B"},
-            {"question_id": f"{q1_id}_q2", "student_response": "bad answer"}
-        ],
+        student_answers=wrong_answers,
         db=db_session
     )
     assert eval1["overall_score"] < 50.0
@@ -59,15 +64,19 @@ def test_adaptive_learning_method_shift_workflow(db_session, adaptive_student):
     t2 = teach_concept(student_id=adaptive_student.id, topic="Object-Oriented Programming (OOP)", db=db_session, preferred_method=adapt1["recommended_next_method"])
     assert t2["method_used"] == "analogy"
 
-    # Step 5: Student retakes quiz and scores high (Score 100%)
+    # Step 5: Student retakes quiz with a new quiz instance and scores high (Score 100%)
+    q2 = generate_quiz(student_id=adaptive_student.id, topic="Object-Oriented Programming (OOP)", num_questions=2)
+    q2_id = q2["quiz_id"]
+    keys2 = get_quiz_answer_key(q2_id)
+    correct_answers2 = [
+        {"question_id": q["id"], "student_response": keys2[q["id"]]["expected_answer"]}
+        for q in q2["questions"]
+    ]
     eval2 = evaluate_performance(
         student_id=adaptive_student.id,
         topic="Object-Oriented Programming (OOP)",
-        quiz_id=q1_id,
-        student_answers=[
-            {"question_id": f"{q1_id}_q1", "student_response": "A"},
-            {"question_id": f"{q1_id}_q2", "student_response": "Object-Oriented Programming receives input parameters and handles state logic."}
-        ],
+        quiz_id=q2_id,
+        student_answers=correct_answers2,
         db=db_session
     )
     assert eval2["overall_score"] >= 85.0

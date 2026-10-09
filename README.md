@@ -4,17 +4,17 @@
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React 19](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![SQLite](https://img.shields.io/badge/SQLite-3.0-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
 [![NVIDIA NIM](https://img.shields.io/badge/NVIDIA-NIM_Agent-76B900?style=for-the-badge&logo=nvidia&logoColor=white)](https://build.nvidia.com/)
-[![Pytest Passed](https://img.shields.io/badge/Pytest-26%2F26_Passed-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](https://docs.pytest.org/)
+[![Pytest](https://img.shields.io/badge/Pytest-Automated_Suite-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](https://docs.pytest.org/)
 
 ---
 
 ## 🌟 Overview
 
-**SkillBridge AI** is an advanced, production-ready AI agent web application engineered to bridge the gap between self-taught students and enterprise tech career requirements. It is built specifically for students who cannot afford expensive bootcamps or need structured guidance across C, C++, Java, Python, SQL, Web Development, Data Structures, Cybersecurity, and Cloud Engineering.
+**SkillBridge AI** is an advanced AI agent web application engineered to bridge the gap between self-taught students and enterprise tech career requirements. It is built specifically for students who cannot afford expensive bootcamps or need structured guidance across C, C++, Java, Python, SQL, Web Development, Data Structures, Cybersecurity, and Cloud Engineering.
 
 SkillBridge AI conducts interactive diagnostic onboarding, performs skill gap analysis against 10–12 industry prerequisites per career track, generates time-bounded daily study plans, teaches concepts using 6 distinct educational styles, renders interactive Mermaid architectural flowcharts, runs multi-language code drills with standard input (`STDIN`) support, evaluates diagnostic quizzes, and automatically adapts its teaching methodology whenever a student struggles.
 
@@ -42,7 +42,7 @@ SkillBridge AI conducts interactive diagnostic onboarding, performs skill gap an
 - Teaches any topic using **6 distinct, 100% unique teaching methods**:
   - **Simple Explanation**: Plain, jargon-free English without raw markdown symbols (`*` or `**`).
   - **Step-by-Step**: Sequential, numbered execution cards from setup to cleanup.
-  - **Visual Diagram**: Interactive dark-mode Mermaid flowcharts (`graph TD`) rendered natively via `mermaid.js`.
+  - **Visual Diagram**: Interactive dark-mode Mermaid flowcharts (`graph TD`) rendered natively via `mermaid.js` in strict security mode.
   - **Real-World Application**: Teaches **2 REAL Successful Apps** (Netflix, NASA, Google, Tesla) AND **2 REAL Enterprise Business Failures** (Knight Capital $440M loss, CrowdStrike 2024 outage) caused by mismanaging the concept.
   - **Analogy**: Beginner-simplified mental models (e.g., airport luggage sorting systems) for struggling students.
   - **Code Walkthrough / Policy Audit**: Executable code drills for programming topics, or command security audit drills for governance/cybersecurity topics.
@@ -85,11 +85,11 @@ SkillBridge AI conducts interactive diagnostic onboarding, performs skill gap an
 | **Backend API** | Python 3.12+, FastAPI, Pydantic V2 | High-performance asynchronous REST API |
 | **Database** | SQLAlchemy 2.0, SQLite | ORM object mapping with parameterized query safety |
 | **AI Orchestration** | NVIDIA NIM API (Llama 3.3 70B, Nemotron) | Function calling agent engine with fallback router |
-| **Code Runner** | Subprocess Execution Engine | Multi-language sandbox (C, C++, Java, Python, JS) with STDIN piping |
-| **Frontend Framework** | React 19, Vite 6 | Modern component-driven single page application |
+| **Code Runner** | Subprocess Sandbox Engine | Multi-language sandbox (C, C++, Java, Python, JS) with resource limits & STDIN piping |
+| **Frontend Framework** | React 19, Vite 8.3 | Modern component-driven single page application |
 | **Styling & UI** | Tailwind CSS v4, Lucide Icons, Glassmorphism | Dark-mode, responsive, ultra-sleek UI design |
-| **Visual Diagrams** | Mermaid.js | Native SVG flowchart diagram renderer |
-| **Testing** | Pytest 8.1+ | 26 automated end-to-end and unit test cases |
+| **Visual Diagrams** | Mermaid.js | Native SVG flowchart diagram renderer in strict security mode |
+| **Testing** | Pytest 8.1+ | Automated end-to-end and unit test suite |
 
 ---
 
@@ -123,28 +123,30 @@ SkillBridge AI conducts interactive diagnostic onboarding, performs skill gap an
 
 ### 1. Prerequisites
 - **Python**: Version 3.12 or higher
-- **Node.js**: Version 18 or higher (with `npm`)
+- **Node.js**: Version `^20.19.0` or `>=22.12.0` (with `npm`)
 - **GCC / G++ / Java** (Optional, for compiling C/C++/Java locally in sandbox)
 
 ### 2. Backend Setup
 ```bash
-# Navigate to backend directory
-cd backend
-
-# Create virtual environment (Windows)
+# From project root directory
 python -m venv venv
-venv\Scripts\activate
 
-# Install Python dependencies
+# Activate virtual environment
+# On Windows:
+venv\Scripts\activate
+# On Linux/macOS:
+source venv/bin/activate
+
+# Install Python dependencies from repository root
 pip install -r requirements.txt
 
-# Run FastAPI backend server (starts on http://127.0.0.1:8000)
+# Run canonical FastAPI backend server (starts on http://127.0.0.1:8000)
 python run_server.py
 ```
 
 ### 3. Frontend Setup
 ```bash
-# Open a new terminal and navigate to frontend directory
+# Navigate to frontend directory
 cd frontend
 
 # Install Node dependencies
@@ -154,11 +156,15 @@ npm install
 npm run dev
 ```
 
-### 4. Run Automated Test Suite
+### 4. Run Automated Tests & Linters
 ```bash
-# Execute Pytest test suite in backend directory
-cd backend
-pytest -v
+# Run backend pytest suite from project root
+pytest backend/tests/ -v
+
+# Run frontend linter and production build from frontend directory
+cd frontend
+npm run lint
+npm run build
 ```
 
 ---

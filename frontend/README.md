@@ -1,16 +1,36 @@
-# React + Vite
+# SkillBridge AI — React Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Next-Gen AI Career Preparation & Adaptive Education Engine frontend application built with React 19, Vite 8, and Tailwind CSS v4.
 
-Currently, two official plugins are available:
+## System Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Node.js**: `^20.19.0` or `>=22.12.0` (Vite 8.3 engine requirement; verified with Node.js v24.18)
+- **npm**: `10.0+` (verified with npm 12.1)
 
-## React Compiler
+## Setup & Running
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# From the frontend directory
+npm install
 
-## Expanding the Oxlint configuration
+# Start Vite local development server (proxies /api to http://127.0.0.1:8000)
+npm run dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+# Run oxlint linter
+npm run lint
+
+# Build production bundle
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+## Architecture & Features
+
+- **Dynamic Diagnostic Onboarding**: Captures career goals, background, and time budgets.
+- **Career Skill Analyzer**: Gap analysis comparing self-reported skills against assessed market prerequisites.
+- **Adaptive Multi-Style Learning**: 6 teaching styles including interactive strict-mode Mermaid diagrams.
+- **Multi-Language Code Sandbox**: In-browser execution with STDIN support for C, C++, Java, Python, and JavaScript.
+- **Interactive Quiz Hub**: Diagnostic quizzes with deterministic multiple-choice scoring and rubric-based conceptual evaluation.
+- **Dual-Mode Resource Finder**: Filter by keyword, career track, subject tags, and difficulty.

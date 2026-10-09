@@ -2,12 +2,13 @@ from sqlalchemy.orm import Session
 from typing import Dict, Any, List
 from backend.app.models import StudentProfile, ProgressRecord, AssessmentAttempt, LearningPlan, LearningPlanTask
 from backend.app.schemas import ProgressSummaryResponse
-from backend.app.data.catalog_manager import CatalogManager
+from backend.app.services.skill_gap_service import SkillGapService
 
 def track_student_progress(student_id: int, db: Session) -> Dict[str, Any]:
     """
     Aggregates completed tasks, assessment attempts, scores, weak topics, completed topics,
     total time spent, teaching methods used, and next recommended activity for the student dashboard.
+    Uses canonical CareerSkillGapSnapshot for authoritative matching metrics.
     """
     profile = db.query(StudentProfile).filter(StudentProfile.id == student_id).first()
     if not profile:
@@ -18,13 +19,12 @@ def track_student_progress(student_id: int, db: Session) -> Dict[str, Any]:
     completed_topics = [p.topic for p in progress_records if p.status == "completed"]
     struggling_topics = [p.topic for p in progress_records if p.status in ("struggling", "revision_needed")]
 
-    # Calculate overall career skill progress
-    gap_analysis = CatalogManager.analyze_skill_gap(
+    # Calculate authoritative overall career skill progress via canonical snapshot
+    gap_analysis = SkillGapService.get_or_compute_snapshot(
+        db=db,
         student_id=student_id,
         target_career=profile.target_career,
-        self_reported_skills=profile.existing_skills or [],
-        self_reported_proficiency=profile.self_reported_proficiency or {},
-        assessed_skills={p.topic: {"level": "Mastered" if p.mastery_score >= 85 else "Intermediate", "score": p.mastery_score} for p in progress_records}
+        reason="progress_dashboard_sync"
     )
 
     # Fetch assessment attempts for score trend

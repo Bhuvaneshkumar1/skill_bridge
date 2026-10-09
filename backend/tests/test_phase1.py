@@ -19,7 +19,7 @@ def test_create_and_get_student_profile(client):
     student_id = data["id"]
 
     # Retrieve profile
-    get_res = client.get(f"/api/profiles/{student_id}")
+    get_res = client.get(f"/api/profiles/{student_id}", headers={"X-Student-Id": str(student_id)})
     assert get_res.status_code == 200
     assert get_res.json()["name"] == "Jane Doe"
 
@@ -49,7 +49,7 @@ def test_update_student_profile(client):
     student_id = create_res.json()["id"]
 
     update_payload = {"available_daily_study_time": 120, "existing_skills": ["HTML", "CSS"]}
-    update_res = client.put(f"/api/profiles/{student_id}", json=update_payload)
+    update_res = client.put(f"/api/profiles/{student_id}", json=update_payload, headers={"X-Student-Id": str(student_id)})
     assert update_res.status_code == 200
     assert update_res.json()["available_daily_study_time"] == 120
     assert "CSS" in update_res.json()["existing_skills"]
@@ -88,7 +88,7 @@ def test_career_skill_gap_analysis(client):
     profile_res = client.post("/api/profiles", json=profile_payload)
     student_id = profile_res.json()["id"]
 
-    gap_res = client.get(f"/api/careers/Python Developer/gap-analysis/{student_id}")
+    gap_res = client.get(f"/api/careers/Python Developer/gap-analysis/{student_id}", headers={"X-Student-Id": str(student_id)})
     assert gap_res.status_code == 200
     gap_data = gap_res.json()
     assert gap_data["student_id"] == student_id

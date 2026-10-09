@@ -1,6 +1,7 @@
-import pytest
+import os
 import sys
 from pathlib import Path
+import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
@@ -10,7 +11,22 @@ root_dir = Path(__file__).resolve().parent.parent.parent
 if str(root_dir) not in sys.path:
     sys.path.insert(0, str(root_dir))
 
+# Enforce isolated in-memory database in environment BEFORE importing app or database modules (SB-009)
+os.environ["DATABASE_URL"] = "sqlite:///:memory:"
+
+# Create isolated in-memory SQLite engine with StaticPool so concurrent/threaded requests share state
+test_engine = create_engine(
+    "sqlite:///:memory:",
+    connect_args={"check_same_thread": False},
+    poolclass=StaticPool
+)
+TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
+
+# Redirect database engine and session factory
 import backend.app.database as db_module
+db_module.engine = test_engine
+db_module.SessionLocal = TestingSessionLocal
+
 from backend.app.models import (
     StudentProfile,
     AssessedSkill,
@@ -21,18 +37,6 @@ from backend.app.models import (
     ProgressRecord
 )
 from backend.app.main import app
-
-TEST_DB_PATH = (root_dir / "backend" / "tests" / "test_runner.db").as_posix()
-
-test_engine = create_engine(
-    f"sqlite:///{TEST_DB_PATH}",
-    connect_args={"check_same_thread": False}
-)
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
-
-# Direct all database calls in backend.app to isolated test engine
-db_module.engine = test_engine
-db_module.SessionLocal = TestingSessionLocal
 
 def override_get_db():
     db = TestingSessionLocal()

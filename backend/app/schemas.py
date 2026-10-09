@@ -57,16 +57,22 @@ class CareerSkillMapResponse(BaseModel):
 
 
 class SkillGapItem(BaseModel):
+    skill_id: str = ""
     skill_name: str
     required_proficiency: str
     self_reported_proficiency: Optional[str] = "None"
     assessed_proficiency: Optional[str] = "Not Assessed"
+    demonstrated_proficiency: Optional[str] = "Not Assessed"
+    demonstrated_score: Optional[float] = 0.0
     gap_status: str  # Missing, Needs Improvement, Satisfied, Mastered
     is_prerequisite_met: bool = True
     missing_prerequisites: List[str] = Field(default_factory=list)
+    assessment_evidence: Optional[Dict[str, Any]] = None
 
 
 class SkillGapAnalysisResponse(BaseModel):
+    snapshot_id: Optional[int] = None
+    version: Optional[int] = 1
     student_id: int
     target_career: str
     overall_match_percentage: float
@@ -75,6 +81,8 @@ class SkillGapAnalysisResponse(BaseModel):
     gap_skills: List[SkillGapItem]
     acquired_skills: List[SkillGapItem]
     next_recommended_skills: List[str]
+    recalculated_reason: Optional[str] = None
+    calculated_at: Optional[datetime] = None
 
 
 # --- LEARNING RESOURCE SCHEMAS ---
@@ -84,21 +92,31 @@ class LearningResource(BaseModel):
     title: str
     provider: str
     resource_url: str
-    resource_type: str  # video, interactive_course, documentation, article, tutorial
-    difficulty_level: str  # Beginner, Intermediate, Advanced
+    resource_type: str  # video, playlist, channel, search_fallback, interactive_course, documentation, tutorial
+    difficulty_level: str  # Beginner, Intermediate, Advanced, All Levels
     estimated_duration: str  # e.g., "45 mins" or "2 hours"
     estimated_minutes: int
     cost_information: str  # "100% Free", "Free Audit", etc.
     is_verified_free: bool = True
     skill_tags: List[str] = Field(default_factory=list)
+    channel_name: Optional[str] = None
+    content_type: Optional[str] = "video"  # video, playlist, channel, search_fallback
+    language: Optional[str] = "English"
+    verification_status: Optional[str] = "verified_video"  # verified_video, verified_playlist, verified_channel, search_fallback, discovered_video, discovered_playlist, discovered_channel
+    category: Optional[str] = None
+    description: Optional[str] = None
+    prerequisite_skills: List[str] = Field(default_factory=list)
+    learning_objectives: List[str] = Field(default_factory=list)
 
 
 class ResourceSearchQuery(BaseModel):
     query: Optional[str] = None
+    topic: Optional[str] = None
     skill: Optional[str] = None
     career: Optional[str] = None
     difficulty: Optional[str] = None
     resource_type: Optional[str] = None
+    mode: Optional[str] = "all"  # catalog, youtube, or all
 
 
 # --- LEARNING PLAN SCHEMAS ---
@@ -138,15 +156,25 @@ class TeachConceptRequest(BaseModel):
     preferred_method: Optional[str] = "simple_explanation"  # simple_explanation, step_by_step, visual, real_world, analogy, code_walkthrough
 
 
+class ContentValidationResult(BaseModel):
+    is_valid: bool
+    violations: List[str] = Field(default_factory=list)
+
+
 class TeachConceptResponse(BaseModel):
+    session_id: Optional[int] = None
+    student_id: Optional[int] = None
     topic: str
     method_used: str
+    method_title: Optional[str] = None
     explanation: str
     analogy: Optional[str] = None
     step_by_step_breakdown: List[str] = Field(default_factory=list)
     visual_diagram: Optional[Dict[str, Any]] = None  # Mermaid diagram or structural json
     interactive_exercise: Optional[Dict[str, Any]] = None  # Code sandbox exercise / fill-in-blank
     key_takeaways: List[str] = Field(default_factory=list)
+    real_world_cases: Optional[Dict[str, Any]] = None
+    is_content_validated: bool = True
 
 
 # --- QUIZ & EVALUATION SCHEMAS ---
@@ -158,16 +186,46 @@ class QuizOption(BaseModel):
 
 class QuizQuestion(BaseModel):
     id: str
-    question_type: str  # multiple_choice, short_answer, practical_coding
+    question_type: str = "multiple_choice"  # multiple_choice only for student quizzes
     question_text: str
-    options: Optional[List[QuizOption]] = None
+    options: List[QuizOption]
     hint: Optional[str] = None
+    course_id: Optional[str] = None
+    topic_id: Optional[str] = None
+    learning_objective: Optional[str] = None
+    difficulty: Optional[str] = "Beginner"
+    created_at: Optional[str] = None
 
 
 class GeneratedQuiz(BaseModel):
     quiz_id: str
     topic: str
+    course_id: Optional[str] = None
+    difficulty: Optional[str] = "Beginner"
+    learning_objective: Optional[str] = None
     questions: List[QuizQuestion]
+
+
+class CourseProgressStateResponse(BaseModel):
+    course_id: str
+    topic: str
+    status: str  # LOCKED, IN_PROGRESS, CONTENT_COMPLETED, QUIZ_UNLOCKED, PASSED, FAILED
+    quiz_unlocked: bool
+    prerequisites_met: bool
+    tasks_completed_count: int
+    tasks_required_count: int
+    completed_learning_modules: List[str] = Field(default_factory=list)
+    unmet_prerequisites: List[str] = Field(default_factory=list)
+    can_generate_quiz: bool
+    lock_reason: Optional[str] = None
+    highest_score: float = 0.0
+    attempts_count: int = 0
+
+
+class CompleteModuleRequest(BaseModel):
+    student_id: int
+    topic: str
+    module_name: str = "concept_explanation"
 
 
 class StudentAnswer(BaseModel):

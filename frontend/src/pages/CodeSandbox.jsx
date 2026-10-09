@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { api } from '../api/client';
-import { Play, Send, Terminal, CheckCircle2, AlertCircle, Cpu, Loader2, Sparkles, Code2, ShieldAlert } from 'lucide-react';
+import { Play, Terminal, CheckCircle2, AlertCircle, Cpu, Loader2, Sparkles, Code2 } from 'lucide-react';
 
 const CODE_TEMPLATES = {
   cpp: `#include <iostream>
@@ -103,10 +103,16 @@ export default function CodeSandbox() {
   };
 
   const handleSubmitCode = async () => {
+    const savedId = localStorage.getItem('skillbridge_student_id');
+    const studentId = savedId ? parseInt(savedId, 10) : null;
+    if (!studentId) {
+      setError("Please create or select a student profile before submitting code for AI review.");
+      return;
+    }
+
     setSubmitting(true);
     setError(null);
     try {
-      const studentId = parseInt(localStorage.getItem('skillbridge_student_id') || '1', 10);
       const res = await api.submitSandboxCode({
         student_id: studentId,
         language,
@@ -134,13 +140,13 @@ export default function CodeSandbox() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-medium mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-2">
             <Code2 className="w-3.5 h-3.5" /> Multi-Language Interactive Code Sandbox
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-100 tracking-tight flex items-center gap-2">
             AI Code Executor & Evaluator Agent
           </h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-slate-400 text-sm mt-1">
             Write code in C, C++, Python, Java, or JavaScript. Run to inspect stdout/stderr, then submit for AI Agent analysis of memory safety, Big-O complexity, and skill graph updates.
           </p>
         </div>
@@ -150,16 +156,16 @@ export default function CodeSandbox() {
           <button
             onClick={handleRunCode}
             disabled={running || submitting}
-            className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs flex items-center gap-2 border border-gray-700 transition disabled:opacity-50"
+            className="px-4 py-2.5 rounded-xl bg-[#111A2E] hover:bg-[#162440] text-slate-200 font-semibold text-xs flex items-center gap-2 border border-slate-700 transition disabled:opacity-50"
           >
-            {running ? <Loader2 className="w-4 h-4 animate-spin text-indigo-400" /> : <Play className="w-4 h-4 text-emerald-400 fill-emerald-400" />}
+            {running ? <Loader2 className="w-4 h-4 animate-spin text-blue-400" /> : <Play className="w-4 h-4 text-emerald-400 fill-emerald-400" />}
             Run Code
           </button>
           
           <button
             onClick={handleSubmitCode}
             disabled={running || submitting}
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-medium text-xs flex items-center gap-2 shadow-lg shadow-indigo-500/25 transition disabled:opacity-50"
+            className="px-4 py-2.5 rounded-xl gradient-button text-white font-semibold text-xs flex items-center gap-2 transition disabled:opacity-50"
           >
             {submitting ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : <Sparkles className="w-4 h-4" />}
             Submit to AI Agent
@@ -179,12 +185,12 @@ export default function CodeSandbox() {
         
         {/* Left Column: Code Editor & Controls (7 Cols) */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-gray-800 backdrop-blur-xl space-y-4">
+          <div className="p-4 rounded-2xl pro-panel border border-slate-800 space-y-4">
             
             {/* Top Bar: Language & Topic Selection */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-gray-800">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800">
               <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-400 font-medium">Language:</span>
+                <span className="text-xs text-slate-400 font-medium">Language:</span>
                 <div className="flex flex-wrap gap-1">
                   {[
                     { id: 'cpp', label: 'C++ (g++)' },
@@ -198,8 +204,8 @@ export default function CodeSandbox() {
                       onClick={() => handleLanguageChange(item.id)}
                       className={`px-2.5 py-1 rounded-lg text-xs font-mono font-medium transition ${
                         language === item.id
-                          ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                          : 'bg-slate-800 text-gray-400 hover:text-white'
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-[#0B1120] text-slate-400 hover:text-white border border-slate-800'
                       }`}
                     >
                       {item.label}
@@ -209,12 +215,12 @@ export default function CodeSandbox() {
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-400 font-medium">Topic:</span>
+                <span className="text-xs text-slate-400 font-medium">Topic:</span>
                 <input
                   type="text"
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
-                  className="px-2.5 py-1 rounded-lg bg-slate-950 border border-gray-800 text-xs text-white focus:outline-none focus:border-indigo-500 w-44"
+                  className="px-2.5 py-1 rounded-lg bg-[#0B1120] border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500 w-44"
                 />
               </div>
             </div>
@@ -226,20 +232,20 @@ export default function CodeSandbox() {
                 onChange={(e) => setCode(e.target.value)}
                 rows={16}
                 spellCheck={false}
-                className="w-full p-4 rounded-xl bg-slate-950 border border-gray-800/80 text-indigo-100 font-mono text-xs leading-relaxed focus:outline-none focus:border-indigo-500/80 resize-y"
+                className="w-full p-4 rounded-xl bg-[#0B1120] border border-slate-800 text-slate-100 font-mono text-xs leading-relaxed focus:outline-none focus:border-blue-500 resize-y"
                 placeholder="// Write code here..."
               />
             </div>
 
             {/* STDIN Panel */}
             <div>
-              <label className="block text-xs font-medium text-gray-400 mb-1">Standard Input (STDIN):</label>
+              <label className="block text-xs font-medium text-slate-400 mb-1">Standard Input (STDIN):</label>
               <input
                 type="text"
                 value={stdinInput}
                 onChange={(e) => setStdinInput(e.target.value)}
                 placeholder="Optional input passed to program..."
-                className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-gray-800 text-xs text-gray-300 focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 rounded-xl bg-[#0B1120] border border-slate-800 text-xs text-slate-300 focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
@@ -249,8 +255,8 @@ export default function CodeSandbox() {
         <div className="lg:col-span-5 space-y-4">
           
           {/* Execution Output Panel */}
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-gray-800 backdrop-blur-xl space-y-3">
-            <div className="flex items-center justify-between border-b border-gray-800 pb-2.5">
+          <div className="p-4 rounded-2xl pro-panel border border-slate-800 space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
               <div className="flex items-center gap-2 text-white font-medium text-xs">
                 <Terminal className="w-4 h-4 text-emerald-400" /> Live Terminal Output
               </div>
@@ -263,16 +269,16 @@ export default function CodeSandbox() {
               )}
             </div>
 
-            <div className="min-h-[160px] max-h-[260px] overflow-y-auto p-3.5 rounded-xl bg-slate-950 font-mono text-xs">
+            <div className="min-h-[160px] max-h-[260px] overflow-y-auto p-3.5 rounded-xl bg-[#0B1120] font-mono text-xs">
               {running ? (
-                <div className="flex items-center gap-2 text-indigo-400 py-6 justify-center">
+                <div className="flex items-center gap-2 text-blue-400 py-6 justify-center">
                   <Loader2 className="w-4 h-4 animate-spin" /> Compiling & Executing Code...
                 </div>
               ) : executionResult ? (
                 <div className="space-y-2">
                   {executionResult.stdout && (
                     <div>
-                      <span className="text-[10px] text-gray-500 uppercase tracking-wider block mb-0.5">STDOUT:</span>
+                      <span className="text-[10px] text-slate-500 uppercase tracking-wider block mb-0.5">STDOUT:</span>
                       <pre className="text-emerald-300 whitespace-pre-wrap">{executionResult.stdout}</pre>
                     </div>
                   )}
@@ -283,31 +289,31 @@ export default function CodeSandbox() {
                     </div>
                   )}
                   {!executionResult.stdout && !executionResult.stderr && (
-                    <span className="text-gray-500 italic">Program produced no output.</span>
+                    <span className="text-slate-500 italic">Program produced no output.</span>
                   )}
                 </div>
               ) : (
-                <span className="text-gray-600 italic">Click 'Run Code' to execute and inspect terminal output.</span>
+                <span className="text-slate-500 italic">Click 'Run Code' to execute and inspect terminal output.</span>
               )}
             </div>
           </div>
 
           {/* AI Code Reviewer Agent Feedback Panel */}
-          <div className="p-4 rounded-2xl bg-gradient-to-b from-slate-900/90 to-indigo-950/40 border border-indigo-500/20 backdrop-blur-xl space-y-4">
-            <div className="flex items-center justify-between border-b border-indigo-500/20 pb-2.5">
+          <div className="p-4 rounded-2xl pro-panel border border-slate-800 space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
               <div className="flex items-center gap-2 text-white font-medium text-xs">
-                <Cpu className="w-4 h-4 text-indigo-400" /> AI Code Reviewer Agent Analysis
+                <Cpu className="w-4 h-4 text-blue-400" /> AI Code Reviewer Agent Analysis
               </div>
               {agentAnalysis && (
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-md bg-indigo-600 text-white shadow-md">
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-md bg-blue-600 text-white">
                   Grade: {agentAnalysis.code_quality_grade} ({agentAnalysis.overall_score}%)
                 </span>
               )}
             </div>
 
             {submitting ? (
-              <div className="flex flex-col items-center justify-center py-8 gap-2 text-indigo-300">
-                <Loader2 className="w-6 h-6 animate-spin text-indigo-400" />
+              <div className="flex flex-col items-center justify-center py-8 gap-2 text-blue-300">
+                <Loader2 className="w-6 h-6 animate-spin text-blue-400" />
                 <span className="text-xs font-medium">Code Reviewer Agent inspecting memory safety & Big-O...</span>
               </div>
             ) : agentAnalysis ? (
@@ -315,22 +321,22 @@ export default function CodeSandbox() {
                 
                 {/* Metrics Badges */}
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="p-2.5 rounded-xl bg-slate-950/60 border border-gray-800">
-                    <span className="text-[10px] text-gray-400 block">Complexity Analysis</span>
-                    <span className="font-mono text-indigo-300 font-semibold">{agentAnalysis.big_o_complexity}</span>
+                  <div className="p-2.5 rounded-xl bg-[#0B1120] border border-slate-800">
+                    <span className="text-[10px] text-slate-400 block">Complexity Analysis</span>
+                    <span className="font-mono text-blue-300 font-semibold">{agentAnalysis.big_o_complexity}</span>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-slate-950/60 border border-gray-800">
-                    <span className="text-[10px] text-gray-400 block">Memory Safety</span>
+                  <div className="p-2.5 rounded-xl bg-[#0B1120] border border-slate-800">
+                    <span className="text-[10px] text-slate-400 block">Memory Safety</span>
                     <span className="font-mono text-emerald-300 font-semibold text-[11px] truncate block">{agentAnalysis.memory_safety_status}</span>
                   </div>
                 </div>
 
                 {/* Reviewer Feedback Notes */}
                 <div className="space-y-1.5">
-                  <span className="text-[11px] font-medium text-gray-300">Agent Actionable Notes:</span>
+                  <span className="text-[11px] font-medium text-slate-300">Agent Actionable Notes:</span>
                   <div className="space-y-1.5">
                     {agentAnalysis.reviewer_feedback.map((note, idx) => (
-                      <div key={idx} className="p-2.5 rounded-xl bg-slate-950/80 border border-indigo-500/20 text-gray-300 flex items-start gap-2">
+                      <div key={idx} className="p-2.5 rounded-xl bg-[#0B1120] border border-slate-800 text-slate-300 flex items-start gap-2">
                         <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
                         <span>{note}</span>
                       </div>
@@ -344,7 +350,7 @@ export default function CodeSandbox() {
                 </div>
               </div>
             ) : (
-              <div className="py-6 text-center text-gray-500 text-xs">
+              <div className="py-6 text-center text-slate-400 text-xs">
                 Click <strong>'Submit to AI Agent'</strong> to evaluate your code for memory safety, Big-O complexity, logic errors, and automatically update your learning progress graph.
               </div>
             )}

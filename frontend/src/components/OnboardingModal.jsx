@@ -38,7 +38,7 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
     setLoading(true);
     setError(null);
 
-    const finalCareer = targetCareer === 'Other' ? (customCareer.trim() || 'Software Engineer') : targetCareer;
+    const finalCareer = targetCareer === 'Other' ? (customCareer.trim() || 'Python Developer') : targetCareer;
 
     const skillsArray = skillsInput
       .split(',')
@@ -72,19 +72,19 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-xl glass-panel rounded-2xl overflow-hidden shadow-2xl border border-indigo-500/20">
+      <div className="relative w-full max-w-xl pro-panel rounded-2xl overflow-hidden border border-slate-800">
         
         {/* Header */}
-        <div className="p-6 bg-gradient-to-r from-indigo-900/50 via-purple-900/30 to-slate-900/50 border-b border-gray-800 flex justify-between items-start">
+        <div className="p-6 bg-[#131E35] border-b border-slate-800 flex justify-between items-start">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-400" /> SkillBridge AI Diagnostic Onboarding
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-blue-400" /> SkillBridge AI Diagnostic Onboarding
             </div>
-            <h2 className="text-2xl font-bold text-white">Create Your Learning Profile</h2>
-            <p className="text-sm text-gray-400 mt-1">Tell us your background and goals to generate your AI study plan.</p>
+            <h2 className="text-2xl font-bold text-slate-100">Create Your Learning Profile</h2>
+            <p className="text-sm text-slate-400 mt-1">Tell us your background and goals to generate your AI study plan.</p>
           </div>
           {onClose && (
-            <button onClick={onClose} className="p-1 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/60">
+            <button onClick={onClose} className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
               <X className="w-5 h-5" />
             </button>
           )}
@@ -101,8 +101,8 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
 
           {/* Name */}
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1.5">
-              <User className="w-3.5 h-3.5 text-indigo-400" /> Full Name
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center gap-1.5">
+              <User className="w-3.5 h-3.5 text-blue-400" /> Full Name
             </label>
             <input
               type="text"
@@ -110,20 +110,20 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Priyadharshini"
-              className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-gray-700/80 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm"
+              className="w-full px-4 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-sm"
             />
           </div>
 
           {/* Education & Career Target */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1.5">
-                <BookOpen className="w-3.5 h-3.5 text-indigo-400" /> Education Level
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-blue-400" /> Education Level
               </label>
               <select
                 value={educationLevel}
                 onChange={(e) => setEducationLevel(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 border border-gray-700/80 text-white focus:outline-none focus:border-indigo-500 text-sm"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-slate-100 focus:outline-none focus:border-blue-500 text-sm"
               >
                 <option value="High School">High School</option>
                 <option value="Undergraduate">Undergraduate</option>
@@ -134,13 +134,13 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1.5">
-                <Target className="w-3.5 h-3.5 text-indigo-400" /> Target Career Goal
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center gap-1.5">
+                <Target className="w-3.5 h-3.5 text-blue-400" /> Target Career Goal
               </label>
               <select
                 value={targetCareer}
                 onChange={(e) => setTargetCareer(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 border border-gray-700/80 text-white focus:outline-none focus:border-indigo-500 text-sm"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-slate-100 focus:outline-none focus:border-blue-500 text-sm"
               >
                 {careersList.map(c => (
                   <option key={c} value={c}>{c}</option>
@@ -154,7 +154,7 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
                   value={customCareer}
                   onChange={(e) => setCustomCareer(e.target.value)}
                   placeholder="e.g. Embedded Systems Architect, C++ Game Dev"
-                  className="mt-2 w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 border border-indigo-500/50 text-white placeholder-gray-500 text-xs focus:outline-none"
+                  className="mt-2 w-full px-3.5 py-2.5 rounded-xl bg-[#0B1120] border border-blue-500/50 text-slate-100 placeholder-slate-500 text-xs focus:outline-none"
                 />
               )}
             </div>
@@ -163,8 +163,8 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
           {/* Time Budget & Language */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-indigo-400" /> Daily Study Budget (Mins)
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-blue-400" /> Daily Study Budget (Mins)
               </label>
               <div className="flex items-center gap-3">
                 <input
@@ -174,20 +174,20 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
                   step="15"
                   value={dailyTime}
                   onChange={(e) => setDailyTime(e.target.value)}
-                  className="w-full accent-indigo-500 bg-gray-800 rounded-lg cursor-pointer"
+                  className="w-full accent-blue-600 bg-slate-800 rounded-lg cursor-pointer"
                 />
-                <span className="text-sm font-bold text-indigo-300 min-w-[50px] text-right">{dailyTime} m</span>
+                <span className="text-sm font-bold text-blue-400 min-w-[50px] text-right">{dailyTime} m</span>
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
                 Preferred Language
               </label>
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 border border-gray-700/80 text-white focus:outline-none focus:border-indigo-500 text-sm"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-slate-100 focus:outline-none focus:border-blue-500 text-sm"
               >
                 <option value="English">English</option>
                 <option value="Spanish">Spanish</option>
@@ -199,7 +199,7 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
 
           {/* Existing Skills & Self Reported Level */}
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
               Existing Skills (Comma Separated)
             </label>
             <input
@@ -207,12 +207,12 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
               value={skillsInput}
               onChange={(e) => setSkillsInput(e.target.value)}
               placeholder="e.g. Python, Git, HTML, SQL"
-              className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-gray-700/80 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 text-sm"
+              className="w-full px-4 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
               Self-Reported Proficiency
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -221,10 +221,10 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
                   type="button"
                   key={lvl}
                   onClick={() => setProficiency(lvl)}
-                  className={`py-2 px-3 rounded-xl border text-xs font-medium transition-all ${
+                  className={`py-2 px-3 rounded-xl border text-xs font-semibold transition-all ${
                     proficiency === lvl
-                      ? 'bg-indigo-600/30 border-indigo-500 text-indigo-200'
-                      : 'bg-slate-900/50 border-gray-800 text-gray-400 hover:border-gray-700'
+                      ? 'bg-blue-600/20 border-blue-500 text-blue-200'
+                      : 'bg-[#0B1120] border-slate-800 text-slate-400 hover:border-slate-700'
                   }`}
                 >
                   {lvl}
@@ -238,7 +238,7 @@ export default function OnboardingModal({ isOpen, onClose, onProfileCreated }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 rounded-xl gradient-button text-white font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-indigo-600/20"
+              className="w-full py-3 px-4 rounded-xl gradient-button text-white font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

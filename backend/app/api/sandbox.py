@@ -3,8 +3,10 @@ from sqlalchemy.orm import Session
 from typing import Dict, Any, Optional
 from pydantic import BaseModel
 from backend.app.database import get_db
+from backend.app.models import StudentProfile
 from backend.app.services.code_runner import CodeExecutionService
 from backend.app.services.multi_agent_system import SkillBridgeMultiAgentSystem
+from backend.app.auth import get_current_student
 
 router = APIRouter(prefix="/sandbox", tags=["Multi-Language Code Sandbox"])
 
@@ -15,7 +17,7 @@ class CodeRunRequest(BaseModel):
     stdin: Optional[str] = ""
 
 class CodeSubmitRequest(BaseModel):
-    student_id: Optional[int] = 1
+    student_id: Optional[int] = None
     language: str
     code: str
     topic: Optional[str] = ""
@@ -37,17 +39,26 @@ def run_code_in_sandbox(req: CodeRunRequest):
     )
 
 @router.post("/submit", response_model=Dict[str, Any])
-def submit_code_for_agent_review(req: CodeSubmitRequest, db: Session = Depends(get_db)):
+def submit_code_for_agent_review(
+    req: CodeSubmitRequest,
+    current_student: StudentProfile = Depends(get_current_student),
+    db: Session = Depends(get_db)
+):
     """
     Runs student code, passes output to Code Reviewer Agent for memory safety,
     Big-O complexity, and rubric grading, and automatically updates the student's skill graph.
     """
+    if req.student_id and req.student_id != current_student.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Forbidden: Cannot submit code review for another student."
+        )
     topic_str = req.topic or req.problem_description or "Programming Concept"
-    sid = req.student_id or 1
     return SkillBridgeMultiAgentSystem.process_code_sandbox_submit(
-        student_id=sid,
+        student_id=current_student.id,
         language=req.language,
         code=req.code,
         topic=topic_str,
         db=db
     )
+
