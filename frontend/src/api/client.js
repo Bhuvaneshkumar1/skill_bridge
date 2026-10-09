@@ -41,6 +41,7 @@ export const api = {
 
   // Careers & Skill Gap
   listCareers: () => fetchJSON('/careers'),
+  getCareerMap: (careerName) => fetchJSON(`/careers/${encodeURIComponent(careerName)}`),
   getSkillGap: (careerName, studentId, forceRefresh = false) => {
     const q = forceRefresh ? '?force_refresh=true' : '';
     return fetchJSON(`/careers/${encodeURIComponent(careerName)}/gap-analysis/${studentId}${q}`);
